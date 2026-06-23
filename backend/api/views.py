@@ -165,3 +165,20 @@ def upload_profile_image(request):
 
     return Response({"message": "Profile image updated successfully"})
 
+from rest_framework_simplejwt.tokens import RefreshToken
+
+@api_view(['POST'])
+@authentication_classes([])
+def refresh_token(request):
+    refresh_token_string = request.data.get('refresh')
+
+    if not refresh_token_string:
+        return Response({"error": "Refresh token missing"}, status=status.HTTP_400_BAD_REQUEST)
+
+    try:
+        refresh = RefreshToken(refresh_token_string)
+        access_token = refresh.access_token
+    except TokenError:
+        return Response({"error": "Invalid or expired refresh token"}, status=status.HTTP_401_UNAUTHORIZED)
+
+    return Response({"access": str(access_token)})
