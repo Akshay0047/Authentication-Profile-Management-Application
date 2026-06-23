@@ -75,24 +75,39 @@ function Profile() {
     navigate('/login')
   }
 
-  if (error) return <p>{error}</p>
-  if (!profile) return <p>Loading...</p>
+  if (error) return <p className="page">{error}</p>
+  if (!profile) return <p className="page">Loading...</p>
 
   return (
-    <div>
-      <h1>Profile</h1>
-      <p>Name: {profile.name}</p>
-      <p>Email: {profile.email}</p>
-      {profile.profile_image && (
-        <img src={profile.profile_image} alt="Profile" width={100} />
-      )}
-      <div>
-        <input type="file" accept="image/*" onChange={handleImageChange} disabled={uploading} />
-        {uploading && <p>Uploading...</p>}
-        {uploadError && <p>{uploadError}</p>}
+    <div className="page">
+      <h1 className="page-title">Your Profile</h1>
+      <p className="page-subtitle">Manage your account details</p>
+
+      <div className="profile-card">
+        {profile.profile_image ? (
+          <img className="profile-avatar" src={profile.profile_image} alt="Profile" />
+        ) : (
+          <div className="profile-avatar" />
+        )}
+
+        <p className="profile-field">{profile.name}</p>
+        <p className="profile-field">{profile.email}</p>
+
+        <label className="file-input-label">
+          {uploading ? 'Uploading...' : 'Change photo'}
+          <input type="file" accept="image/*" onChange={handleImageChange} disabled={uploading} />
+        </label>
+        {uploadError && <p className="form-error">{uploadError}</p>}
+
+        <div className="profile-actions">
+          <button className="pill-button" onClick={() => navigate('/profile/update')}>
+            Update Profile
+          </button>
+          <button className="pill-button primary" onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
       </div>
-      <button onClick={() => navigate('/profile/update')}>Update</button>
-      <button onClick={handleLogout}>Logout</button>
     </div>
   )
 }

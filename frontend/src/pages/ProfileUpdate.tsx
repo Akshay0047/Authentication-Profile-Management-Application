@@ -34,23 +34,27 @@ function ProfileUpdate() {
   }
 
   return (
-    <div>
-      <h1>Update Profile</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="page">
+      <h1 className="page-title">Update profile</h1>
+      <p className="page-subtitle">Change your name or email</p>
+
+      <form className="auth-card" onSubmit={handleSubmit}>
         <input
+          className="pill-input"
           type="text"
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <input
+          className="pill-input"
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        {error && <p>{error}</p>}
-        <button type="submit" disabled={saving}>
+        {error && <p className="form-error">{error}</p>}
+        <button className="pill-button primary" type="submit" disabled={saving}>
           {saving ? 'Saving...' : 'Save'}
         </button>
       </form>

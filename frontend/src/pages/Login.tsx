@@ -25,23 +25,29 @@ function Login() {
   }
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="page">
+      <h1 className="page-title">Welcome back</h1>
+      <p className="page-subtitle">Sign in to continue</p>
+
+      <form className="auth-card" onSubmit={handleSubmit}>
         <input
+          className="pill-input"
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
+          className="pill-input"
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        {error && <p>{error}</p>}
-        <button type="submit">Login</button>
+        {error && <p className="form-error">{error}</p>}
+        <button className="pill-button primary" type="submit">
+          Login
+        </button>
       </form>
     </div>
   )
